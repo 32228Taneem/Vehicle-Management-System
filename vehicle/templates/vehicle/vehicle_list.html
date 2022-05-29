@@ -1,0 +1,261 @@
+{% load static %}
+<!--{% static 'vehicle/' %}-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Focus </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'vehicle/images/favicon.png' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- Custom Stylesheet -->
+    <link href="{% static 'vehicle/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <a href="{% url 'home' %}" class="brand-logo">
+                <img class="logo-abbr" src="{% static 'vehicle/images/logo.png' %}" alt="">
+                <img class="logo-compact" src="{% static 'vehicle/images/logo-text.png' %}" alt="">
+                <img class="brand-title" src="{% static 'vehicle/images/logo-text.png' %}" alt="">
+            </a>
+
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <div class="search_bar dropdown">
+                                <span class="search_icon p-3 c-pointer" data-toggle="dropdown">
+                                    <i class="mdi mdi-magnify"></i>
+                                </span>
+                                <div class="dropdown-menu p-0 m-0">
+                                    <form action="{% url 'search-vehicle' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input class="form-control" name="searched" type="search" placeholder="Search Vehicle" aria-label="Search">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="navbar-nav header-right">
+                            {% if user.is_authenticated %}
+                                <li class="nav-item dropdown header-profile">
+                                    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                        <i class="mdi mdi-account"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="{% url 'logout-user' %}" class="dropdown-item">
+                                            <i class="icon-key"></i>
+                                            <span class="ml-2">Logout</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% else %}
+                                <li class="nav-item dropdown header-profile">
+                                    <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                        <i class="mdi mdi-account"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a href="{% url 'login-user' %}" class="dropdown-item">
+                                            <i class="icon-key"></i>
+                                            <span class="ml-2">Login/Register</span>
+                                        </a>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="quixnav">
+            <div class="quixnav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label first">Main Menu</li>
+                    <li><a href="{% url 'home' %}" aria-expanded="false"><i
+                                class="icon icon-single-04"></i><span class="nav-text">Dashboard</span></a>
+                    </li>
+                    <li><a class="has-arrow" href="javascript:void()" aria-expanded="false"><i
+                                class="icon icon-app-store"></i><span class="nav-text">Vehicles</span></a>
+                        <ul aria-expanded="false">
+                            <li><a href="{% url 'vehicle-list' %}">Vehicle List</a></li>
+                            {% if user.is_authenticated %}
+                                <li><a href="{% url 'add-vehicle' %}">Add Vehicle</a></li>
+                            {% endif %}
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <div class="container-fluid">
+                <!-- row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        {% if user.is_authenticated %}
+                        {% else %}
+                            <div class="row page-titles mx-0">
+                                <div class="col-sm-6 p-md-0">
+                                    <div class="welcome-text">
+                                        <span class="ml-1">Sorry,</span>
+                                        <h4>You must login to edit and delete vehicles</h4>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="{% url 'login-user' %}">Login</a></li>
+                                    </ol>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% for message in messages %}
+                            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                <strong>{{ message }}</strong>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Vehicle List</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered verticle-middle table-responsive-sm">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Vehicles</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                            <tbody>
+                                                {% for vehicle in vehicles %}
+                                                    <tr>
+                                                        <td>{{ vehicle }}</td>
+                                                        <td>
+                                                            <span>
+                                                                <a href="{% url 'vehicle-details' vehicle.id %}" class="mr-4" data-toggle="tooltip"
+                                                                    data-placement="top" title="View Details"><i
+                                                                        class="far fa-eye text-secondary"></i> </a>
+                                                                {% if user.is_authenticated %}
+                                                                    <a href="{% url 'update-vehicle' vehicle.id %}" class="mr-4" data-toggle="tooltip"
+                                                                        data-placement="top" title="Edit"><i
+                                                                            class="fa fa-pencil text-secondary"></i> </a>
+                                                                    <a href="{% url 'delete-vehicle' vehicle.id %}" data-toggle="tooltip"
+                                                                        data-placement="top" title="Delete"><i
+                                                                            class="fa fa-trash text-danger"></i></a>
+                                                                {% endif %}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Developed by <a href="https://aswathysaji.github.io/" target="_blank">Aswathy Saji </a> <script>document.write(new Date().getFullYear())</script></p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+        
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="{% static 'vehicle/vendor/global/global.min.js' %}"></script>
+    <script src="{% static 'vehicle/js/quixnav-init.js' %}"></script>
+    <script src="{% static 'vehicle/js/custom.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/97124b44f5.js" crossorigin="anonymous"></script>
+
+
+</body>
+
+</html>

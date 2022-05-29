@@ -1,0 +1,71 @@
+{% load static %}
+<!--{% static 'vehicle/' %}-->
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Focus</title>
+    <!-- Favicon icon -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'vehicle/images/favicon.png' %}">
+    <link href="{% static 'vehicle/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body class="h-100">
+    <div class="authincation h-100">
+        <div class="container-fluid h-100">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-6">
+                    {% for message in messages %}
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{ message }}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                    {% endfor %}
+                    <div class="authincation-content">
+                        <div class="row no-gutters">
+                            <div class="col-xl-12">
+                                <div class="auth-form">
+                                    <h4 class="text-center mb-4">Sign In Your Account</h4>
+                                    <form action="" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label><strong>Username</strong></label>
+                                            <input type="text" name="username" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label><strong>Password</strong></label>
+                                            <input type="password" name="password" class="form-control">
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                                        </div>
+                                    </form>
+                                    <div class="new-account mt-3">
+                                        <p>Don't have an account? <a class="text-primary" href="{% url 'register-user' %}">Sign up</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="{% static 'vehicle/vendor/global/global.min.js' %}"></script>
+    <script src="{% static 'vehicle/js/quixnav-init.js' %}"></script>
+    <script src="{% static 'vehicle/js/custom.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous"></script>
+</body>
+
+</html>
